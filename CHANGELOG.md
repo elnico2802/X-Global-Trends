@@ -50,3 +50,8 @@ Pre-release centrada en estabilidad, integración visual y preparación de distr
 
 - Se adopta una filosofía freemium para el futuro.
 - `0.9.0` no incluye funciones de pago, suscripciones ni sistema de cobros.
+
+### Release Candidate
+
+- Auditoría manual final completada.
+- Versión `0.9.0` aprobada como Release Candidate.

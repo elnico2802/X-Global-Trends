@@ -82,3 +82,22 @@ Lista de comprobación para considerar una compilación como release candidate.
 ## Criterio de aprobación
 
 La release candidate se considera aprobada cuando todos los checks funcionales, visuales, de privacidad e instalación pasan sin errores bloqueantes.
+
+## Validación manual final confirmada
+
+- [x] Instalación limpia en Brave.
+- [x] Funcionamiento en `/home`.
+- [x] Funcionamiento en `/explore`.
+- [x] Persistencia del país tras F5.
+- [x] Navegación SPA entre Inicio y Explorar.
+- [x] Ausencia de tendencias duplicadas.
+- [x] Tema claro.
+- [x] Tema oscuro.
+- [x] Icono oficial correcto.
+- [x] Ausencia de errores reportados por Brave Extensions.
+
+## Estado de release
+
+Release Candidate 0.9.0: APROBADA
+
+Fecha de validación: 7 de octubre de 2026
