@@ -3,6 +3,20 @@
   "name": "X Global Trends",
   "version": "0.1.0",
   "description": "MVP de navegación de tendencias globales dentro de X.",
+  "icons": {
+    "16": "assets/icons/icon-16.png",
+    "32": "assets/icons/icon-32.png",
+    "48": "assets/icons/icon-48.png",
+    "128": "assets/icons/icon-128.png"
+  },
+  "action": {
+    "default_icon": {
+      "16": "assets/icons/icon-16.png",
+      "32": "assets/icons/icon-32.png",
+      "48": "assets/icons/icon-48.png",
+      "128": "assets/icons/icon-128.png"
+    }
+  },
   "background": { "service_worker": "src/background.js" },
   "permissions": ["storage"],
   "host_permissions": ["https://trends24.in/*"],
