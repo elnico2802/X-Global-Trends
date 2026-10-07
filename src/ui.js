@@ -5,7 +5,7 @@ const XGlobalTrendsUI = (() => {
   function create() {
     const root = document.createElement("section");
     root.id = ROOT_ID; root.setAttribute("aria-label", "X Global Trends");
-    root.innerHTML = `<div class="xgt-panel"><header class="xgt-header"><div class="xgt-brand"><span class="xgt-globe">${globeIcon}</span><span>X Global Trends</span></div><a class="xgt-profile" href="https://x.com/NicoAguilarUY" aria-label="Perfil de @NicoAguilarUY en X">${xIcon}</a></header><div class="xgt-filters"><label>PAÍS<select class="xgt-country" disabled><option>Cargando países…</option></select></label><label>CATEGORÍA<select class="xgt-category" disabled><option>Todas</option></select></label></div><p class="xgt-status" aria-live="polite">Cargando países…</p><ol class="xgt-trends" hidden></ol></div>`;
+    root.innerHTML = `<div class="xgt-panel"><header class="xgt-header"><div class="xgt-brand"><span class="xgt-globe">${globeIcon}</span><span>X Global Trends</span></div><a class="xgt-profile" href="https://x.com/NicoAguilarUY" aria-label="Perfil de @NicoAguilarUY en X">${xIcon}</a></header><div class="xgt-filters"><label>PAÍS<select class="xgt-country" disabled><option>Cargando países…</option></select></label></div><p class="xgt-status" aria-live="polite">Cargando países…</p><ol class="xgt-trends" hidden></ol></div>`;
     return root;
   }
   function showStatus(root, text) { root.querySelector(".xgt-status").textContent = text; root.querySelector(".xgt-trends").hidden = true; }
