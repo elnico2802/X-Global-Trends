@@ -20,6 +20,12 @@
   "background": { "service_worker": "src/background.js" },
   "permissions": ["storage"],
   "host_permissions": ["https://trends24.in/*"],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/icons/icon-32.png"],
+      "matches": ["https://x.com/*"]
+    }
+  ],
   "content_scripts": [
     {
       "matches": ["https://x.com/*"],

@@ -4,6 +4,7 @@
 #x-global-trends-root .xgt-header { align-items: center; display: flex; justify-content: space-between; }
 #x-global-trends-root .xgt-brand { align-items: center; display: flex; font-size: 15px; font-weight: 700; gap: 8px; }
 #x-global-trends-root .xgt-globe { color: rgb(29, 155, 240); display: inline-flex; height: 20px; width: 20px; }
+#x-global-trends-root .xgt-globe img { display: block; height: 100%; width: 100%; }
 #x-global-trends-root .xgt-globe svg { fill: none; height: 100%; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; width: 100%; }
 #x-global-trends-root .xgt-profile { border-radius: 50%; color: inherit; display: inline-flex; padding: 5px; }
 #x-global-trends-root .xgt-profile:hover { background: rgba(29, 155, 240, .1); color: rgb(29, 155, 240); }
