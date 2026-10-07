@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "description": "MVP de navegación de tendencias globales dentro de X.",
   "background": { "service_worker": "src/background.js" },
+  "permissions": ["storage"],
   "host_permissions": ["https://trends24.in/*"],
   "content_scripts": [
     {
