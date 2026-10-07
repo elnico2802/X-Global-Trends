@@ -1,32 +1,30 @@
-#x-global-trends-root {
-  box-sizing: border-box;
-  display: block;
-  padding: 12px 16px 4px;
-  color: rgb(15, 20, 25);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-}
-
-.xgt-panel {
-  border: 1px solid rgba(83, 100, 113, 0.35);
-  border-radius: 16px;
-  padding: 12px;
-  background: rgba(247, 249, 249, 0.88);
-}
-
-.xgt-title { font-size: 15px; font-weight: 700; }
-.xgt-filters { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-.xgt-filters label { color: rgb(83, 100, 113); display: grid; font-size: 11px; font-weight: 700; gap: 3px; letter-spacing: .02em; }
-.xgt-filters select { border: 1px solid rgba(29, 155, 240, 0.45); border-radius: 8px; background: transparent; color: inherit; font: inherit; font-size: 13px; padding: 6px 8px; }
-.xgt-filters select:disabled { cursor: wait; opacity: .65; }
-.xgt-status { margin: 10px 0 0; color: rgb(83, 100, 113); font-size: 13px; }
-.xgt-trends { margin: 10px 0 0; padding-left: 28px; }
-.xgt-trends li { margin: 7px 0; }
-.xgt-trends a { color: rgb(29, 155, 240); text-decoration: none; }
-.xgt-trends a:hover { text-decoration: underline; }
-
-#x-global-trends-root { color-scheme: light dark; }
-@media (prefers-color-scheme: dark) {
-  #x-global-trends-root { color: rgb(231, 233, 234); }
-  .xgt-panel { background: rgba(22, 24, 28, 0.9); border-color: rgb(51, 54, 57); }
-  .xgt-filters label, .xgt-status { color: rgb(139, 152, 165); }
-}
+#x-global-trends-root { box-sizing: border-box; color: rgb(15, 20, 25); display: block; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; padding: 12px 16px 4px; }
+#x-global-trends-root *, #x-global-trends-root *::before, #x-global-trends-root *::after { box-sizing: border-box; }
+#x-global-trends-root .xgt-panel { background: rgb(247, 249, 249); border: 1px solid rgb(239, 243, 244); border-radius: 16px; overflow: hidden; padding: 12px; }
+#x-global-trends-root .xgt-header { align-items: center; display: flex; justify-content: space-between; }
+#x-global-trends-root .xgt-brand { align-items: center; display: flex; font-size: 15px; font-weight: 700; gap: 8px; }
+#x-global-trends-root .xgt-globe { color: rgb(29, 155, 240); display: inline-flex; height: 20px; width: 20px; }
+#x-global-trends-root .xgt-globe svg { fill: none; height: 100%; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; width: 100%; }
+#x-global-trends-root .xgt-profile { border-radius: 50%; color: inherit; display: inline-flex; padding: 5px; }
+#x-global-trends-root .xgt-profile:hover { background: rgba(29, 155, 240, .1); color: rgb(29, 155, 240); }
+#x-global-trends-root .xgt-profile svg { fill: currentColor; height: 17px; width: 17px; }
+#x-global-trends-root .xgt-filters { display: grid; gap: 8px; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); margin-top: 12px; }
+#x-global-trends-root .xgt-filters label { color: rgb(83, 100, 113); display: grid; font-size: 10px; font-weight: 700; gap: 4px; letter-spacing: .03em; }
+#x-global-trends-root .xgt-filters select { appearance: auto; background: transparent; border: 1px solid rgb(207, 217, 222); border-radius: 8px; color: inherit; font: inherit; font-size: 13px; max-width: 100%; min-width: 0; padding: 6px 7px; }
+#x-global-trends-root .xgt-filters option { background: rgb(255, 255, 255); color: rgb(15, 20, 25); }
+#x-global-trends-root .xgt-filters select:focus-visible, #x-global-trends-root .xgt-profile:focus-visible { outline: 2px solid rgb(29, 155, 240); outline-offset: 2px; }
+#x-global-trends-root .xgt-filters select:disabled { cursor: wait; opacity: .65; }
+#x-global-trends-root .xgt-status { color: rgb(83, 100, 113); font-size: 12px; margin: 10px 0 0; }
+#x-global-trends-root .xgt-trends { margin: 8px 0 0; max-height: 330px; overflow-y: auto; padding: 0 8px 0 28px; scrollbar-color: rgb(139, 152, 165) transparent; scrollbar-width: thin; }
+#x-global-trends-root .xgt-trends::-webkit-scrollbar { width: 8px; }
+#x-global-trends-root .xgt-trends::-webkit-scrollbar-thumb { background: rgb(139, 152, 165); border: 3px solid transparent; border-radius: 8px; background-clip: padding-box; }
+#x-global-trends-root .xgt-trends li { border-radius: 6px; margin: 1px 0; padding: 6px 2px; }
+#x-global-trends-root .xgt-trends li:hover { background: rgba(15, 20, 25, .05); }
+#x-global-trends-root .xgt-trends a { color: inherit; display: block; font-size: 13px; overflow: hidden; text-decoration: none; text-overflow: ellipsis; white-space: nowrap; }
+#x-global-trends-root .xgt-trends a:hover { color: rgb(29, 155, 240); }
+#x-global-trends-root.xgt-dark { color: rgb(231, 233, 234); }
+#x-global-trends-root.xgt-dark .xgt-panel { background: rgb(22, 24, 28); border-color: rgb(51, 54, 57); }
+#x-global-trends-root.xgt-dark .xgt-filters label, #x-global-trends-root.xgt-dark .xgt-status { color: rgb(139, 152, 165); }
+#x-global-trends-root.xgt-dark .xgt-filters select { border-color: rgb(83, 100, 113); }
+#x-global-trends-root.xgt-dark .xgt-filters option { background: rgb(22, 24, 28); color: rgb(231, 233, 234); }
+#x-global-trends-root.xgt-dark .xgt-trends li:hover { background: rgba(231, 233, 234, .08); }
