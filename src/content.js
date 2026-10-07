@@ -1,46 +1,22 @@
 (() => {
   const isExploreRoute = () => location.pathname === "/explore" || location.pathname.startsWith("/explore/");
-
-  function findTarget() {
-    const timeline = document.querySelector('[aria-label*="Timeline"]');
-    if (timeline) return timeline;
-
-    // X cambia con frecuencia sus selectores; este contenedor es un fallback estable.
-    return document.querySelector('main [data-testid="primaryColumn"]');
+  const findTarget = () => document.querySelector('[aria-label*="Timeline"]') || document.querySelector('main [data-testid="primaryColumn"]');
+  const removeUi = () => document.getElementById(XGlobalTrendsUI.ROOT_ID)?.remove();
+  async function loadTrends(root, location) {
+    XGlobalTrendsUI.showStatus(root, "Cargando tendencias…");
+    try { XGlobalTrendsUI.showTrends(root, await Trends24Provider.getTrends(location)); }
+    catch (error) { XGlobalTrendsUI.showStatus(root, ({ empty: "Sin tendencias disponibles", unavailable: "Fuente temporalmente no disponible", network: "Error de conexión", source: "Fuente temporalmente no disponible" })[error?.code] || "Fuente temporalmente no disponible"); }
   }
-
-  function removeUi() {
-    document.getElementById(XGlobalTrendsUI.ROOT_ID)?.remove();
+  async function initialize(root) {
+    try { const locations = await Trends24Provider.getLocations(); XGlobalTrendsUI.setCountries(root, locations, (location) => loadTrends(root, location)); await loadTrends(root, locations[0]); }
+    catch (error) { XGlobalTrendsUI.showStatus(root, error?.code === "network" ? "Error de conexión" : "Fuente temporalmente no disponible"); }
   }
-
   function ensureUi() {
-    if (!isExploreRoute()) {
-      removeUi();
-      return;
-    }
-
-    const target = findTarget();
-    if (!target) return;
-
-    const existing = document.getElementById(XGlobalTrendsUI.ROOT_ID);
-    if (existing && target.contains(existing)) return;
-    existing?.remove();
-    target.prepend(XGlobalTrendsUI.create());
+    if (!isExploreRoute()) return removeUi(); const target = findTarget(); if (!target) return;
+    const existing = document.getElementById(XGlobalTrendsUI.ROOT_ID); if (existing && target.contains(existing)) return;
+    existing?.remove(); const root = XGlobalTrendsUI.create(); target.prepend(root); initialize(root);
   }
-
-  let scheduled = false;
-  function scheduleEnsure() {
-    if (scheduled) return;
-    scheduled = true;
-    requestAnimationFrame(() => {
-      scheduled = false;
-      ensureUi();
-    });
-  }
-
-  const observer = new MutationObserver(scheduleEnsure);
-  observer.observe(document.documentElement, { childList: true, subtree: true });
-  window.addEventListener("popstate", scheduleEnsure);
-  window.addEventListener("hashchange", scheduleEnsure);
-  scheduleEnsure();
+  let scheduled = false; function scheduleEnsure() { if (scheduled) return; scheduled = true; requestAnimationFrame(() => { scheduled = false; ensureUi(); }); }
+  new MutationObserver(scheduleEnsure).observe(document.documentElement, { childList: true, subtree: true });
+  window.addEventListener("popstate", scheduleEnsure); window.addEventListener("hashchange", scheduleEnsure); scheduleEnsure();
 })();

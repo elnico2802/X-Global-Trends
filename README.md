@@ -1,10 +1,11 @@
 # X Global Trends
 
-MVP técnico de una extensión Chrome/Brave (Manifest V3) que añade una barra de
-selección de tendencias dentro de `x.com/explore`.
+Extensión Chrome/Brave (Manifest V3) que añade una barra de tendencias dentro de
+`x.com/explore`. Consulta las páginas públicas de Trends24 desde un service
+worker, con caché local de siete minutos y sin cookies, tokens, API keys ni servidor.
 
-La interfaz usa exclusivamente datos **DEMO / MOCK**: no consulta ni presenta
-tendencias reales.
+Las ubicaciones se descubren en la portada del proveedor y se filtran con el
+catálogo de regiones estándar del navegador; el selector no incluye ciudades.
 
 ## Probarla
 
@@ -16,14 +17,12 @@ tendencias reales.
 Los botones actualizan el estado visual sin recargar la página. Al navegar fuera
 de Explorar la barra se retira; al volver, se inserta nuevamente sin duplicarse.
 
-## Siguiente etapa
+## Límites actuales
 
-Antes de integrar datos reales, conviene evaluar un proveedor público y
-reemplazable. X no ofrece una API pública gratuita y estable de tendencias por
-país; no se debe depender de endpoints privados ni de cookies o tokens de sesión.
-Si no surge una fuente pública fiable, la alternativa responsable requiere un
-proveedor autorizado o un backend propio que consuma una fuente permitida.
+La única categoría funcional es **Todas**. X ofrece superficies como Tendencias,
+Noticias, Deportes y Entretenimiento, pero Trends24 no proporciona una
+clasificación pública fiable por tendencia, por lo que la extensión no inventa
+esa clasificación.
 
-La futura vista Global podrá combinar rankings reales con cobertura por país,
-posición, recurrencia y volumen cuando estén disponibles. La fórmula se definirá
-cuando exista una fuente de datos verificable.
+Global se ofrece solo si Trends24 publica y enlaza una ubicación Worldwide. No
+se calcula un ranking propio.
