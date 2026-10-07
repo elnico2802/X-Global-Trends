@@ -14,7 +14,7 @@ const XGlobalTrendsUI = (() => {
   }
   function showTrends(root, result) {
     const list = root.querySelector(".xgt-trends");
-    list.replaceChildren(...result.trends.map((trend) => { const item = document.createElement("li"); const link = document.createElement("a"); link.href = trend.searchUrl; link.target = "_self"; link.textContent = trend.name; item.append(`${trend.rank}. `, link); return item; }));
+    list.replaceChildren(...result.trends.map((trend) => { const item = document.createElement("li"); const link = document.createElement("a"); link.href = trend.searchUrl; link.target = "_self"; link.textContent = trend.name; item.append(link); return item; }));
     list.hidden = false; root.querySelector(".xgt-status").textContent = result.snapshot ? `Actualizado: ${new Date(result.snapshot).toLocaleString()}` : "Fuente: Trends24";
   }
   return { ROOT_ID, create, showStatus, setCountries, showTrends };
