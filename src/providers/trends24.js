@@ -23,12 +23,19 @@ const Trends24Provider = (() => {
   function parseTrends(html) {
     const doc = parseDocument(html);
     const candidates = [...doc.querySelectorAll(".trend-card__list, ol, ul")].map((list) => [...list.children].filter((item) => item.matches("li"))).filter((items) => items.length >= 2).sort((a, b) => b.length - a.length);
-    const trends = (candidates[0] || []).map((item, index) => {
+    const parsedTrends = (candidates[0] || []).map((item, index) => {
       const anchor = item.querySelector("a[href]"); const name = (anchor?.textContent || item.textContent).trim().replace(/\s+/g, " "); if (!name) return null;
       const externalUrl = anchor?.href || ""; const host = new URL(externalUrl || ORIGIN, ORIGIN).hostname;
       const searchUrl = /(^|\.)((x|twitter)\.com)$/i.test(host) ? externalUrl.replace(/^https:\/\/twitter\.com/i, "https://x.com") : `https://x.com/search?q=${encodeURIComponent(name)}&src=typed_query`;
       return { rank: index + 1, name, searchUrl };
     }).filter(Boolean);
+    const seenTrends = new Set();
+    const trends = parsedTrends.filter((trend) => {
+      const key = trend.name.normalize("NFKC").trim().replace(/\s+/gu, " ").toLocaleLowerCase();
+      if (seenTrends.has(key)) return false;
+      seenTrends.add(key);
+      return true;
+    }).map((trend, index) => ({ ...trend, rank: index + 1 }));
     return { trends, snapshot: doc.querySelector("time[datetime]")?.getAttribute("datetime") || null };
   }
   async function getTrends(location) { const parsed = parseTrends(await fetchHtml(location.url)); if (!parsed.trends.length) throw { code: "empty" }; return parsed; }
