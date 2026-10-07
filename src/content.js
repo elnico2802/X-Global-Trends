@@ -2,18 +2,40 @@
   const isSupportedRoute = () => location.pathname === "/home" || location.pathname === "/explore" || location.pathname.startsWith("/explore/");
   const findTarget = () => document.querySelector('[data-testid="sidebarColumn"]') || document.querySelector('main [data-testid="primaryColumn"]');
   const hiddenModuleAttribute = "data-xgt-hidden-module";
+  const previousDisplayAttribute = "data-xgt-previous-display";
+  const previousDisplayPriorityAttribute = "data-xgt-previous-display-priority";
   const nativeModuleTitles = ["Actualizar a Premium+", "En directo en X"];
   function restoreNativeModules() {
-    document.querySelectorAll(`[${hiddenModuleAttribute}]`).forEach((module) => { module.hidden = false; module.removeAttribute(hiddenModuleAttribute); });
+    document.querySelectorAll(`[${hiddenModuleAttribute}]`).forEach((module) => {
+      const previousDisplay = module.getAttribute(previousDisplayAttribute);
+      const previousPriority = module.getAttribute(previousDisplayPriorityAttribute);
+      if (previousDisplay) module.style.setProperty("display", previousDisplay, previousPriority || "");
+      else module.style.removeProperty("display");
+      module.removeAttribute(hiddenModuleAttribute);
+      module.removeAttribute(previousDisplayAttribute);
+      module.removeAttribute(previousDisplayPriorityAttribute);
+    });
+  }
+  function findExactTitleNode(root, title) {
+    const textWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    let textNode;
+    while ((textNode = textWalker.nextNode())) if (textNode.nodeValue.trim() === title) return textNode.parentElement;
+    return null;
+  }
+  function countExactTitleNodes(root, title) {
+    const textWalker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+    let count = 0; let textNode;
+    while ((textNode = textWalker.nextNode())) if (textNode.nodeValue.trim() === title) count += 1;
+    return count;
   }
   function findNativeModule(sidebar, title) {
-    const titleNode = [...sidebar.querySelectorAll("*")].find((node) => node.children.length === 0 && node.textContent.trim() === title);
+    const titleNode = findExactTitleNode(sidebar, title);
     if (!titleNode) return null;
     if (titleNode.closest(`[${hiddenModuleAttribute}]`)) return null;
     for (let module = titleNode.parentElement; module && module !== sidebar; module = module.parentElement) {
       const text = module.textContent.trim();
       const hasProtectedContent = module.querySelector('input, [aria-label="Buscar"], [aria-label="Search"]') || /A quién seguir|Tendencias para ti|Deportes/.test(text);
-      const hasOnlyTargetTitle = [...module.querySelectorAll("*")].filter((node) => node.children.length === 0 && node.textContent.trim() === title).length === 1;
+      const hasOnlyTargetTitle = countExactTitleNodes(module, title) === 1;
       if (text.length > title.length && hasOnlyTargetTitle && !hasProtectedContent) return module;
     }
     return null;
@@ -22,13 +44,22 @@
     if (!sidebar?.matches('[data-testid="sidebarColumn"]')) return;
     nativeModuleTitles.forEach((title) => {
       const module = findNativeModule(sidebar, title);
-      if (module && !module.hidden) { module.hidden = true; module.setAttribute(hiddenModuleAttribute, "true"); }
+      if (module && !module.hasAttribute(hiddenModuleAttribute)) {
+        module.setAttribute(previousDisplayAttribute, module.style.getPropertyValue("display"));
+        module.setAttribute(previousDisplayPriorityAttribute, module.style.getPropertyPriority("display"));
+        module.style.setProperty("display", "none", "important");
+        module.setAttribute(hiddenModuleAttribute, "true");
+      }
     });
   }
   function findSearchAnchor(sidebar) {
     const input = sidebar.querySelector('input[data-testid="SearchBox_Search_Input"]');
     if (!input) return null;
     let anchor = input.closest("form") || input;
+    for (let node = anchor; node && node !== sidebar; node = node.parentElement) {
+      const position = getComputedStyle(node).position;
+      if (position === "sticky" || position === "fixed") return node;
+    }
     while (anchor.parentElement && anchor.parentElement !== sidebar && anchor.parentElement.children.length === 1) anchor = anchor.parentElement;
     return anchor;
   }
