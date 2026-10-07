@@ -2,6 +2,7 @@
   const isSupportedRoute = () => location.pathname === "/home" || location.pathname === "/explore" || location.pathname.startsWith("/explore/");
   const findTarget = () => document.querySelector('[data-testid="sidebarColumn"]') || document.querySelector('main [data-testid="primaryColumn"]');
   const selectedLocationKey = "xgt:selected-location";
+  const loadTokens = new WeakMap();
   const hiddenModuleAttribute = "data-xgt-hidden-module";
   const previousDisplayAttribute = "data-xgt-previous-display";
   const previousDisplayPriorityAttribute = "data-xgt-previous-display-priority";
@@ -74,9 +75,16 @@
   }
   function removeUi() { document.getElementById(XGlobalTrendsUI.ROOT_ID)?.remove(); restoreNativeModules(); }
   async function loadTrends(root, location) {
+    const token = (loadTokens.get(root) || 0) + 1;
+    loadTokens.set(root, token);
     XGlobalTrendsUI.showStatus(root, "Cargando tendencias…");
-    try { XGlobalTrendsUI.showTrends(root, await Trends24Provider.getTrends(location)); }
-    catch (error) { XGlobalTrendsUI.showStatus(root, ({ empty: "Sin tendencias disponibles", unavailable: "Fuente temporalmente no disponible", network: "Error de conexión", source: "Fuente temporalmente no disponible" })[error?.code] || "Fuente temporalmente no disponible"); }
+    try {
+      const result = await Trends24Provider.getTrends(location);
+      if (loadTokens.get(root) === token) XGlobalTrendsUI.showTrends(root, result);
+    }
+    catch (error) {
+      if (loadTokens.get(root) === token) XGlobalTrendsUI.showStatus(root, ({ empty: "Sin tendencias disponibles", unavailable: "Fuente temporalmente no disponible", network: "Error de conexión", source: "Fuente temporalmente no disponible" })[error?.code] || "Fuente temporalmente no disponible");
+    }
   }
   async function initialize(root) {
     try {
