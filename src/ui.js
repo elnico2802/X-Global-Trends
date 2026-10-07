@@ -9,9 +9,10 @@ const XGlobalTrendsUI = (() => {
     return root;
   }
   function showStatus(root, text) { root.querySelector(".xgt-status").textContent = text; root.querySelector(".xgt-trends").hidden = true; }
-  function setCountries(root, locations, onChange) {
+  function setCountries(root, locations, selectedId, onChange) {
     const select = root.querySelector(".xgt-country");
     select.replaceChildren(...locations.map((location) => new Option(location.displayName, location.id)));
+    select.value = selectedId;
     select.disabled = false; select.addEventListener("change", () => onChange(locations.find((location) => location.id === select.value)));
   }
   function showTrends(root, result) {

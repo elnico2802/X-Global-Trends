@@ -1,6 +1,7 @@
 (() => {
   const isSupportedRoute = () => location.pathname === "/home" || location.pathname === "/explore" || location.pathname.startsWith("/explore/");
   const findTarget = () => document.querySelector('[data-testid="sidebarColumn"]') || document.querySelector('main [data-testid="primaryColumn"]');
+  const selectedLocationKey = "xgt:selected-location";
   const hiddenModuleAttribute = "data-xgt-hidden-module";
   const previousDisplayAttribute = "data-xgt-previous-display";
   const previousDisplayPriorityAttribute = "data-xgt-previous-display-priority";
@@ -78,7 +79,18 @@
     catch (error) { XGlobalTrendsUI.showStatus(root, ({ empty: "Sin tendencias disponibles", unavailable: "Fuente temporalmente no disponible", network: "Error de conexión", source: "Fuente temporalmente no disponible" })[error?.code] || "Fuente temporalmente no disponible"); }
   }
   async function initialize(root) {
-    try { const locations = XGlobalTrendsData.localizeLocations(await Trends24Provider.getLocations()); XGlobalTrendsUI.setCountries(root, locations, (location) => loadTrends(root, location)); await loadTrends(root, locations[0]); }
+    try {
+      const locations = XGlobalTrendsData.localizeLocations(await Trends24Provider.getLocations());
+      const global = locations.find((location) => location.id === "global");
+      const storedId = (await chrome.storage.local.get(selectedLocationKey))[selectedLocationKey];
+      const selectedLocation = locations.find((location) => location.id === storedId) || global;
+      if (storedId && storedId !== selectedLocation.id) await chrome.storage.local.set({ [selectedLocationKey]: selectedLocation.id });
+      XGlobalTrendsUI.setCountries(root, locations, selectedLocation.id, async (location) => {
+        await chrome.storage.local.set({ [selectedLocationKey]: location.id });
+        loadTrends(root, location);
+      });
+      await loadTrends(root, selectedLocation);
+    }
     catch (error) { XGlobalTrendsUI.showStatus(root, error?.code === "network" ? "Error de conexión" : "Fuente temporalmente no disponible"); }
   }
   function ensureUi() {
