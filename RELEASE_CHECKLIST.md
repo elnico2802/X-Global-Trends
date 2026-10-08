@@ -1,6 +1,6 @@
 # Release Checklist — X Global Trends 0.9.0
 
-Lista de comprobación para considerar una compilación como release candidate.
+Lista de comprobación de referencia para la versión 0.9.0. Los puntos sin marcar sirven para repetir la verificación en una nueva compilación; el resumen de la validación efectuada figura al final.
 
 ## Instalación limpia
 
@@ -77,7 +77,7 @@ Lista de comprobación para considerar una compilación como release candidate.
 - [ ] Excluir archivos de desarrollo innecesarios del ZIP de distribución.
 - [ ] Incluir `manifest.json`, `src/`, `styles/` y `assets/` completos.
 - [ ] Probar una última instalación desde el contenido exacto del ZIP.
-- [ ] Nombrar el paquete de forma consistente, por ejemplo `x-global-trends-0.9.0.zip`.
+- [ ] Confirmar que el paquete se llama `dist/X-Global-Trends-0.9.0.zip`.
 
 ## Criterio de aprobación
 

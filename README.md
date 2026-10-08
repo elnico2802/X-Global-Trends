@@ -15,7 +15,7 @@
 
 X Global Trends es una extensión para Chrome y Brave que añade un panel compacto de tendencias a la barra lateral de X. Permite consultar **Global** y los países publicados por Trends24 sin salir de `x.com`.
 
-> **Estado actual:** pre-release `0.9.0`. El núcleo funcional está estable y la versión se encuentra en fase de auditoría final previa a release candidate.
+> **Estado actual:** `0.9.0` es una Release Candidate aprobada. La distribución se realiza por ahora desde este repositorio; la publicación en Chrome Web Store está pausada.
 
 ## ✨ Características
 
@@ -44,16 +44,13 @@ El panel aparece en la barra lateral derecha de X:
 
 ## 🚀 Instalación manual
 
-Mientras la extensión no esté publicada en una store:
-
-1. Descargá o cloná este repositorio.
+1. Descargá [X-Global-Trends-0.9.0.zip](dist/X-Global-Trends-0.9.0.zip) y descomprimilo en una carpeta que vayas a conservar. El archivo `manifest.json` debe quedar directamente dentro de esa carpeta.
 2. Abrí `chrome://extensions` en Chrome o `brave://extensions` en Brave.
-3. Activá **Modo de desarrollador**.
-4. Elegí **Cargar descomprimida**.
-5. Seleccioná la carpeta raíz de `X-Global-Trends`.
-6. Abrí `https://x.com/home` o `https://x.com/explore`.
+3. Activá **Modo de desarrollador** y elegí **Cargar descomprimida**.
+4. Seleccioná la carpeta que contiene `manifest.json`.
+5. Abrí `https://x.com/home` o `https://x.com/explore`.
 
-Para actualizar una instalación manual, descargá la versión nueva y pulsá **Recargar** en la tarjeta de la extensión.
+Para actualizar una instalación manual, reemplazá el contenido de esa carpeta con el de un nuevo ZIP y pulsá **Recargar** en la tarjeta de la extensión.
 
 ## 🔐 Privacidad
 
@@ -111,7 +108,7 @@ El detalle actualizado está en [ROADMAP.md](ROADMAP.md). Prioridades posteriore
 - ampliar cobertura geográfica si aparece una fuente compatible;
 - investigar categorías reales sin depender de credenciales privadas;
 - favoritos y preferencias adicionales;
-- preparar distribución en Chrome Web Store;
+- retomar la distribución en Chrome Web Store si se decide más adelante;
 - definir, más adelante, funciones opcionales para una capa Pro.
 
 ## 🧪 Release y calidad
@@ -119,6 +116,14 @@ El detalle actualizado está en [ROADMAP.md](ROADMAP.md). Prioridades posteriore
 La lista de validaciones para la release candidate está documentada en [RELEASE_CHECKLIST.md](RELEASE_CHECKLIST.md).
 
 Los cambios relevantes por versión se registran en [CHANGELOG.md](CHANGELOG.md).
+
+## ⚖️ Licencia y nombre
+
+El código fuente de X Global Trends se distribuye bajo la [Mozilla Public License 2.0](LICENSE) (`MPL-2.0`). El texto completo de la licencia está en `LICENSE`.
+
+> This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+La MPL-2.0 no concede derechos sobre marcas o logotipos. La disponibilidad del código y de los archivos del proyecto no implica que un proyecto derivado sea la versión oficial de X Global Trends ni que esté respaldado por su autor.
 
 ## 🗂️ Estructura
 
@@ -133,6 +138,8 @@ X-Global-Trends/
 │  └─ ui.js             # Render del panel
 ├─ styles/trends.css    # Estilos del panel
 ├─ manifest.json        # Manifest V3
+├─ dist/                # ZIP instalable 0.9.0
+├─ LICENSE              # MPL-2.0
 ├─ PRIVACY.md
 ├─ ROADMAP.md
 ├─ RELEASE_CHECKLIST.md
