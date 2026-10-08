@@ -65,6 +65,18 @@ El panel aparece en la barra lateral derecha de X y conserva la navegación norm
 
 Para actualizar una instalación manual, reemplazá el contenido de esa carpeta con el de un nuevo ZIP y pulsá **Recargar** en la tarjeta de la extensión.
 
+## 🛡️ Verificación de seguridad
+
+El paquete oficial `X-Global-Trends-0.9.0.zip` tiene el siguiente SHA-256:
+
+```text
+8694766691c58d7f6ef0385ac5cdf402dba6cba192ac8ac56b3373d19a05c9ad
+```
+
+El archivo distribuido fue verificado byte a byte contra el código fuente distribuible de este repositorio. Un análisis de [VirusTotal](https://www.virustotal.com/gui/file/8694766691c58d7f6ef0385ac5cdf402dba6cba192ac8ac56b3373d19a05c9ad) reportó **0/65 detecciones** para este ZIP. Esta información es una verificación puntual y no sustituye la evaluación de seguridad de cada persona usuaria.
+
+Malwarebytes Browser Guard mostró una detección **“Riskware”** sobre la URL de descarga. Está en revisión como posible falso positivo; no se afirma que la detección haya sido corregida ni se desaconseja el uso de herramientas de seguridad.
+
 ## 🔐 Privacidad
 
 La extensión está diseñada con una superficie de datos mínima:
