@@ -34,7 +34,20 @@ X Global Trends es una extensión para Chrome y Brave que añade un panel compac
 
 ## 📸 Cómo funciona
 
-El panel aparece en la barra lateral derecha de X:
+El panel aparece en la barra lateral derecha de X y conserva la navegación normal de la plataforma.
+
+<p align="center">
+  <img src="assets/screenshots/dark-global.png" width="49%" alt="X Global Trends en modo oscuro con tendencias Global">
+  <img src="assets/screenshots/country-selector.png" width="49%" alt="Selector de países de X Global Trends">
+</p>
+<p align="center">
+  <sub>Modo oscuro · Global</sub>&nbsp;&nbsp;&nbsp;&nbsp;<sub>Selector de países</sub>
+</p>
+
+<p align="center">
+  <img src="assets/screenshots/light-mode.png" width="49%" alt="X Global Trends en modo claro">
+</p>
+<p align="center"><sub>Modo claro</sub></p>
 
 1. Elegí **Global** o un país en el selector **PAÍS**.
 2. La extensión consulta la fuente pública configurada.
